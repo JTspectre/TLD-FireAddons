@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using System;
 using UnityEngine;
 using MelonLoader;
@@ -295,7 +295,8 @@ namespace FireAddons
                     {
                         string[] input = __result.Split('\n');
                         __result = "      " + __instance.m_LocalizedDisplayName.Text() + "      \n" + input[1] + " & " + emberH.ToString() + "h " + emberM.ToString() + "m\n(" + input[2] + ")";
-                    } else
+                    }
+                    else
                     {
                         __result = "      " + __instance.m_LocalizedDisplayName.Text() + "      \n" + Localization.Get("GAMEPLAY_Embers") + ": " + emberH.ToString() + "h " + emberM.ToString() + "m\n(" + __instance.m_Fire.GetHeatIncreaseText() + ")";
                     }

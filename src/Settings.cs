@@ -23,8 +23,8 @@ namespace FireAddons
 
 		[Name("Lantern: fire start chance modification")]
 		[Description("Suggested value -10 for 'mechanical'; +20 for 'accelerated'.")]
-		[Slider(-30, 30)]
-		public int lanternPenalty = -10;
+		[Slider(-100, 30)]
+		public int lanternPenalty = -5;
 
 		[Name("Lantern: degredation")]
 		[Description("Suggested value 0 for 'mechanical'; any positive for 'accelerated'.")]
@@ -45,8 +45,8 @@ namespace FireAddons
 
 		[Name("Lenses: fire start chance modification")]
 		[Description("Default: 10.")]
-		[Slider(-30, 30)]
-		public int lensesPenalty = 10;
+		[Slider(-100, 30)]
+		public int lensesPenalty = -5;
 
 		[Name("Lenses: degredation")]
 		[Description("Default: 0.")]
@@ -67,8 +67,8 @@ namespace FireAddons
 
 		[Name("Firestriker: fire start chance modification")]
 		[Description("Default: 20.")]
-		[Slider(-30, 30)]
-		public int firestrikerPenalty = 20;
+		[Slider(-100, 30)]
+		public int firestrikerPenalty = 0;
 
 		[Name("Firestriker: degredation")]
 		[Description("Default: 2.")]
@@ -96,13 +96,111 @@ namespace FireAddons
 
 		[Name("Flint: fire start chance modification")]
 		[Description("Default: -10.")]
-		[Slider(-30, 30)]
+		[Slider(-100, 50)]
 		public int flintPenalty = -10;
 
 		[Name("Flint: degredation")]
 		[Description("Suggested value 1.")]
 		[Slider(0f, 20f)]
 		public int flintDegredation = 1;
+
+
+		[Section("Matches StartingChance modifiers")]
+		[Name("Cardboard Matches: fire start chance modification")]
+		[Description("Default: 5.")]
+		[Slider(-100, 50)]
+		public int PackMatchesPenalty = 5;
+
+		[Name("Wood Matches: fire start chance modification")]
+		[Description("Default: 10.")]
+		[Slider(-100, 50)]
+		public int WoodMatchesPenalty = 10;
+
+
+		[Section("Torch/Flares StartingChance modifiers")]
+		[Name("Torch as Starter: fire start chance modification")]
+		[Description("Default: 10.")]
+		[Slider(-100, 50)]
+		public int TorchStarterPenalty = 10;
+
+		[Name("Torch as Fuel: fire start chance modification")]
+		[Description("Default: -10.")]
+		[Slider(-50, 50)]
+		public int TorchFuelPenalty = -10;
+
+		[Name("Flare: fire start chance modification")]
+		[Description("Default: 10.")]
+		[Slider(-100, 50)]
+		public int FlareAPenalty = 10;
+
+		[Name("Marine Flare: fire start chance modification")]
+		[Description("Default: 10.")]
+		[Slider(-100, 50)]
+		public int BlueFlarePenalty = 10;
+
+
+		[Section("Fuel StartingChance modifiers")]
+		[Name("BookA: fire start chance modification")]
+		[Description("Default: 30.")]
+		[Slider(-50, 50)]
+		public int BookAPenalty = 30;
+
+		[Name("Firelog: fire start chance modification")]
+		[Description("Default: -3.")]
+		[Slider(-50, 50)]
+		public int FirelogPenalty = -3;
+
+		[Name("Hardwood: fire start chance modification")]
+		[Description("Default: -5.")]
+		[Slider(-50, 50)]
+		public int HardwoodPenalty = -5;
+
+		[Name("Reclaimed Wood: fire start chance modification")]
+		[Description("Default: -10.")]
+		[Slider(-50, 50)]
+		public int ReclaimedWoodBPenalty = -10;
+
+		[Name("Softwood: fire start chance modification")]
+		[Description("Default: 10.")]
+		[Slider(-50, 50)]
+		public int SoftwoodPenalty = 10;
+
+		[Name("Stick: fire start chance modification")]
+		[Description("Default: 10.")]
+		[Slider(-50, 50)]
+		public int StickPenalty = 10;
+
+
+		[Section("Accelerant StartingChance modifiers")]
+		//[Name("Accelerant: fire start chance modification")]
+		//[Description("Affects all accelerant types. Default: 40.")]
+		//[Slider(0, 100)]
+		//public int AccelerantPenalty = 40;
+		//
+		[Name("AccelerantGunpowder: fire start chance modification")]
+		[Description("Affects Gunpowder. Default: 40.")]
+		[Slider(0, 100)]
+		public int AccelerantGunpowderPenalty = 40;
+
+		[Name("AccelerantLiquids: fire start chance modification")]
+		[Description("Affects Accelerant AND Lamp Oil. Default: 40.")]
+		[Slider(0, 100)]
+		public int AccelerantKerosenePenalty = 40;
+
+		//[Name("AccelerantMedium: fire start chance modification")]
+		//[Description("Affects all accelerant types. Default: 40.")]
+		//[Slider(0, 100)]
+		//public int AccelerantMediumPenalty = 40;
+
+		//[Name("Lanturn Fuel: fire start chance modification")]
+		//[Description("Affects all accelerant types. Default: 40.")]
+		//[Slider(0, 100)]
+		//public int LampFuelPenalty = 40;
+
+		//[Name("Gunpowder: fire start chance modification")]
+		//[Description("Affects all accelerant types. Default: 40.")]
+		//[Slider(0, 100)]
+		//public int GunpowderPenalty = 40;
 
 
 		[Section("Tinder")]
@@ -121,43 +219,48 @@ namespace FireAddons
 		public int tinderFueldeg = 5;
 
 		[Name("Tinder fire start modifications")]
-		[Description("Chane fire start values for tinders. Vanilla: no, suggested: yes.")]
+		[Description("Chance fire start values for tinders. Vanilla: no, suggested: yes.")]
 		public bool tinderMatters = true;
 
 		[Name("Tinder Plug: fire start modification")]
 		[Description("Suggested value 1.")]
-		[Slider(-20, 10)]
-		public int tinderBonusPlug = 1;
+		[Slider(-40, 40)]
+		public int tinderBonusPlug = -5;
 
 		[Name("Newsprint: fire start modification")]
 		[Description("Suggested value 2.")]
-		[Slider(-20, 10)]
-		public int tinderBonusNewsprint = 2;
+		[Slider(-40, 40)]
+		public int tinderBonusNewsprint = 0;
 
 		[Name("Newsprint Roll: fire start modification")]
 		[Description("Suggested value 3.")]
-		[Slider(-20, 10)]
-		public int tinderBonusNewsprintRoll = 3;
+		[Slider(-40, 40)]
+		public int tinderBonusNewsprintRoll = 5;
 
 		[Name("Paper Stack: fire start modification")]
 		[Description("Suggested value 2.")]
-		[Slider(-20, 10)]
-		public int tinderBonusPaper = 2;
+		[Slider(-40, 40)]
+		public int tinderBonusPaper = 0;
 
 		[Name("Cash: fire start modification")]
 		[Description("Suggested value 2.")]
-		[Slider(-20, 10)]
-		public int tinderBonusCash = 2;
+		[Slider(-40, 40)]
+		public int tinderBonusCash = -5;
 
 		[Name("Bark: fire start modification")]
 		[Description("Suggested value 5.")]
-		[Slider(-20, 10)]
-		public int tinderBonusBark = 5;
+		[Slider(-40, 40)]
+		public int tinderBonusBark = 10;
 
 		[Name("Cattail Head: fire start modification")]
 		[Description("Suggested value 1.")]
-		[Slider(-20, 10)]
-		public int tinderBonusCattail = 1;
+		[Slider(-40, 40)]
+		public int tinderBonusCattail = 5;
+
+		//[Name("TinderPile010: fire start modification")]
+		//[Description("Suggested value 1.")]
+		//[Slider(-40, 40)]
+		//public int tinderBonusTinderPile010 = 5;
 
 
 		[Section("Embers")]
@@ -247,7 +350,7 @@ namespace FireAddons
 				SetFieldVisible(nameof(tinderFueldeg), false);
 			}
 			if (tinderMatters)
-            {
+			{
 				SetFieldVisible(nameof(tinderBonusPlug), true);
 				SetFieldVisible(nameof(tinderBonusPaper), true);
 				SetFieldVisible(nameof(tinderBonusNewsprintRoll), true);
@@ -268,7 +371,7 @@ namespace FireAddons
 
 			}
 			if (flintEnable)
-            {
+			{
 				SetFieldVisible(nameof(flintSmeltEnable), true);
 				SetFieldVisible(nameof(flintDegredation), true);
 				SetFieldVisible(nameof(flintStartFire), true);
@@ -276,15 +379,15 @@ namespace FireAddons
 				SetFieldVisible(nameof(flintPenalty), true);
 			}
 			else
-            {
+			{
 				SetFieldVisible(nameof(flintSmeltEnable), false);
-				SetFieldVisible(nameof(flintDegredation), false);
-				SetFieldVisible(nameof(flintStartFire), false);
-				SetFieldVisible(nameof(flintStartTorch), false);
-				SetFieldVisible(nameof(flintPenalty), false);
+				SetFieldVisible(nameof(flintDegredation), true);
+				SetFieldVisible(nameof(flintStartFire), true);
+				SetFieldVisible(nameof(flintStartTorch), true);
+				SetFieldVisible(nameof(flintPenalty), true);
 			}
 			if (embersSystem)
-            {
+			{
 				SetFieldVisible(nameof(embersTime), true);
 				SetFieldVisible(nameof(embersBunoutTemp), true);
 				SetFieldVisible(nameof(embersBunoutRatio), true);
@@ -294,7 +397,7 @@ namespace FireAddons
 				SetFieldVisible(nameof(embersSystemNoCooking), true);
 			}
 			else
-            {
+			{
 				SetFieldVisible(nameof(embersTime), false);
 				SetFieldVisible(nameof(embersBunoutTemp), false);
 				SetFieldVisible(nameof(embersBunoutRatio), false);
@@ -305,12 +408,12 @@ namespace FireAddons
 
 			}
 			if (burnCharcoal)
-            {
+			{
 				SetFieldVisible(nameof(burnCharcoalTime), true);
 				SetFieldVisible(nameof(burnCharcoalTemp), true);
 			}
 			else
-            {
+			{
 				SetFieldVisible(nameof(burnCharcoalTime), false);
 				SetFieldVisible(nameof(burnCharcoalTemp), false);
 			}

@@ -28,10 +28,10 @@ namespace FireAddons
 			string data = SaveGameSlots.LoadDataFromSlot(name, SAVE_NAME);
 			if (!string.IsNullOrEmpty(data))
 			{
-				MelonLogger.Log("JSON loaded " + data);
+				MelonLogger.Msg("JSON loaded " + data);
 				var foo = JSON.Load(data);
 				foreach (var entry in foo as ProxyObject)
-                {
+				{
 					FireAddonsData lFAD = new FireAddonsData();
 					entry.Value.Populate(lFAD);
 					FAD.Add(entry.Key, lFAD);
@@ -77,7 +77,7 @@ namespace FireAddons
 				return Settings.options.tinderBonusCattail;
 			}
 
-			MelonLogger.LogWarning("MISSING TINDER " + fs.name);
+			MelonLogger.Warning("MISSING TINDER " + fs.name);
 			return 0;
 		}
 		internal static bool IsNamedTinder(GearItem gi)
@@ -112,7 +112,7 @@ namespace FireAddons
 			}
 		}
 		internal static void ModifyCharcoal(GearItem gi)
-        {
+		{
 			if (!gi.m_FuelSourceItem)
 			{
 				gi.m_FuelSourceItem = gi.gameObject.AddComponent<FuelSourceItem>();
@@ -122,6 +122,7 @@ namespace FireAddons
 			gi.m_FuelSourceItem.m_IsTinder = false;
 			gi.m_FuelSourceItem.m_HeatInnerRadius = 5;
 			gi.m_FuelSourceItem.m_HeatInnerRadius = 10;
+			gi.m_FuelSourceItem.m_FireStartSkillModifier = -5;
 		}
 		internal static void ModifyWater(GearItem gi, bool state)
 		{
@@ -137,10 +138,11 @@ namespace FireAddons
 					gi.m_FuelSourceItem.m_FireStartSkillModifier = -100;
 				}
 
-			} else
-            {
+			}
+			else
+			{
 				if (gi.m_FuelSourceItem)
-                {
+				{
 					gi.m_FuelSourceItem = null;
 				}
 			}
@@ -168,12 +170,12 @@ namespace FireAddons
 
 			// Lenses
 			if (gi.name.Contains("GEAR_MagnifyingLens") || gi.name.Contains("GEAR_Binoculars"))
-            {
+			{
 				gi.m_FireStarterItem.m_ConditionDegradeOnUse = Settings.options.lensesDegredation;
 				gi.m_FireStarterItem.m_SecondsToIgniteTinder = Settings.options.lensesStartFire;
 				gi.m_FireStarterItem.m_SecondsToIgniteTorch = Settings.options.lensesStartTorch;
 				gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.lensesPenalty;
-            }
+			}
 
 			// Flint
 			if (gi.name.Contains("GEAR_FlintAndSteel"))
@@ -191,12 +193,89 @@ namespace FireAddons
 
 			}
 			if (gi.name.Contains("GEAR_Firestriker"))
-            {
+			{
 				gi.m_FireStarterItem.m_ConditionDegradeOnUse = Settings.options.firestrikerDegredation;
 				gi.m_FireStarterItem.m_SecondsToIgniteTinder = Settings.options.firestrikerStartFire;
 				gi.m_FireStarterItem.m_SecondsToIgniteTorch = Settings.options.firestrikerStartTorch;
 				gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.firestrikerPenalty;
 			}
+
+			// Matches starting chance
+			if (gi.name.Contains("GEAR_PackMatches"))
+			{
+				gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.PackMatchesPenalty;
+			}
+			if (gi.name.Contains("GEAR_WoodMatches"))
+			{
+				gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.WoodMatchesPenalty;
+			}
+
+			// Torch/Flares starting chance
+			if (gi.name.Contains("GEAR_Torch"))
+			{
+				gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.TorchStarterPenalty;
+				gi.m_FuelSourceItem.m_FireStartSkillModifier = Settings.options.TorchFuelPenalty;
+			}
+			if (gi.name.Contains("GEAR_FlareA"))
+			{
+				gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.FlareAPenalty;
+			}
+			if (gi.name.Contains("GEAR_BlueFlare"))
+			{
+				gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.BlueFlarePenalty;
+			}
+
+			// Fuel starting chance
+			if (gi.name.Contains("GEAR_BookA"))
+			{
+				gi.m_FuelSourceItem.m_FireStartSkillModifier = Settings.options.BookAPenalty;
+			}
+			if (gi.name.Contains("GEAR_Firelog"))
+			{
+				gi.m_FuelSourceItem.m_FireStartSkillModifier = Settings.options.FirelogPenalty;
+			}
+			if (gi.name.Contains("GEAR_Hardwood"))
+			{
+				gi.m_FuelSourceItem.m_FireStartSkillModifier = Settings.options.HardwoodPenalty;
+			}
+			if (gi.name.Contains("GEAR_ReclaimedWoodB"))
+			{
+				gi.m_FuelSourceItem.m_FireStartSkillModifier = Settings.options.ReclaimedWoodBPenalty;
+			}
+			if (gi.name.Contains("GEAR_Softwood"))
+			{
+				gi.m_FuelSourceItem.m_FireStartSkillModifier = Settings.options.SoftwoodPenalty;
+			}
+			if (gi.name.Contains("GEAR_Stick"))
+			{
+				gi.m_FuelSourceItem.m_FireStartSkillModifier = Settings.options.StickPenalty;
+			}
+
+			// Accelerant starting chance
+			//if (gi.name.Contains("GEAR_Accelerant"))
+			//{
+			//	gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.AccelerantPenalty;
+			//}
+			if (gi.name.Contains("GEAR_AccelerantGunpowder"))
+			{
+				gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.AccelerantGunpowderPenalty;
+			}
+			if (gi.name.Contains("GEAR_AccelerantKerosene"))
+			{
+				gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.AccelerantKerosenePenalty;
+			}
+			//if (gi.name.Contains("GEAR_AccelerantMedium"))
+			//{
+			//	gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.AccelerantMediumPenalty;
+			//}
+			//if (gi.name.Contains("GEAR_LampFuel"))
+			//{
+			//	gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.LampFuelPenalty;
+			//}
+			//if (gi.name.Contains("GEAR_GunpowderCan"))
+			//{
+			//	gi.m_FireStarterItem.m_FireStartSkillModifier = Settings.options.GunpowderPenalty;
+			//}
 		}
 
 		internal static void Blueprints()
@@ -264,7 +343,7 @@ namespace FireAddons
 		private static ToolsItem GetToolItemPrefab(string name) => Resources.Load(name).Cast<GameObject>().GetComponent<ToolsItem>();
 
 		private static void WriteFireData(Fire __instance, string guid)
-        {
+		{
 			// create new instance if needed
 			if (!FAD.ContainsKey(guid))
 			{
@@ -281,7 +360,7 @@ namespace FireAddons
 			FAD[guid].heatTemp = __instance.m_HeatSource.m_MaxTempIncrease;
 		}
 		private static void LoadFireData(Fire __instance, string guid)
-        {
+		{
 			if (FAD.ContainsKey(guid))
 			{
 				float timeDiff = GameManager.GetTimeOfDayComponent().GetTODSeconds(GameManager.GetTimeOfDayComponent().GetSecondsPlayedUnscaled()) - FAD[guid].timestamp;
@@ -304,13 +383,13 @@ namespace FireAddons
 		}
 
 		private static void RemoveFireData(Fire __instance, string guid)
-        {
+		{
 			FAD.Remove(guid);
-        }
+		}
 		private static void ResetEmbersOnRestart(Fire __instance)
-        {
-			if ( __instance.m_EmberDurationSecondsTOD > __instance.m_EmberTimer)
-            {
+		{
+			if (__instance.m_EmberDurationSecondsTOD > __instance.m_EmberTimer)
+			{
 				__instance.m_EmberDurationSecondsTOD -= __instance.m_EmberTimer;
 				//__instance.m_MaxOnTODSeconds += __instance.m_EmberTimer;
 
@@ -319,8 +398,8 @@ namespace FireAddons
 			__instance.m_HeatSource.m_TurnedOn = true;
 
 		}
-		private static void CalculateFireTimers(Fire __instance, float timeDiff, float remSec, bool reload=false)
-        {
+		private static void CalculateFireTimers(Fire __instance, float timeDiff, float remSec, bool reload = false)
+		{
 			float currTemp = __instance.GetCurrentTempIncrease();
 			if (timeDiff > remSec)
 			{
@@ -341,7 +420,7 @@ namespace FireAddons
 				__instance.m_EmberDurationSecondsTOD = 0;
 			}
 
-			if ( currTemp > Settings.options.embersBunoutTemp && __instance.m_EmberDurationSecondsTOD > 0f)
+			if (currTemp > Settings.options.embersBunoutTemp && __instance.m_EmberDurationSecondsTOD > 0f)
 			{
 				float burnRatio = Mathf.InverseLerp(Settings.options.embersBunoutTemp, 80f, currTemp);
 				float maxBurnRatio = Settings.options.embersBunoutRatio * Settings.options.embersTime;
@@ -365,7 +444,7 @@ namespace FireAddons
 			}
 		}
 		private static void ApplyStoredFAD(Fire __instance, string guid)
-        {
+		{
 			if (FAD.ContainsKey(guid))
 			{
 				if (FAD[guid].ver == FADSchema)
@@ -420,7 +499,7 @@ namespace FireAddons
 					if (__instance.GetFireState() == FireState.FullBurn)
 					{
 						// if remSec is negative, sync them (no burn)
-						if (remSec < 0 )
+						if (remSec < 0)
 						{
 							__instance.m_ElapsedOnTODSeconds = __instance.m_MaxOnTODSeconds;
 						}
@@ -471,15 +550,15 @@ namespace FireAddons
 			}
 		}
 		internal static void CalculateCharcoal(Fire __instance)
-        {
+		{
 			string guid = Utils.GetGuidFromGameObject(__instance.gameObject);
-			MelonLogger.Log(guid + " charcoal " + __instance.m_NumGeneratedCharcoalPieces);
-			if (FAD.ContainsKey(guid) && __instance.m_NumGeneratedCharcoalPieces <0)
-            {
+			MelonLogger.Msg(guid + " charcoal " + __instance.m_NumGeneratedCharcoalPieces);
+			if (FAD.ContainsKey(guid) && __instance.m_NumGeneratedCharcoalPieces < 0)
+			{
 				float tmp = __instance.m_NumGeneratedCharcoalPieces;
 				__instance.m_NumGeneratedCharcoalPieces = 0;
 				__instance.m_BurningTimeTODHours = 0;
-				MelonLogger.Log(guid + " capping charcoal to 0 from " + tmp);
+				MelonLogger.Msg(guid + " capping charcoal to 0 from " + tmp);
 			}
 		}
 		internal static void FeedFire(Panel_FeedFire __instance)
@@ -524,8 +603,8 @@ namespace FireAddons
 				GameManager.GetInventoryComponent().DestroyGear(fuel.gameObject);
 			}
 			// added fuel while embers
-			else if (_fire.m_EmberTimer > 0f )
-            {
+			else if (_fire.m_EmberTimer > 0f)
+			{
 				ResetEmbersOnRestart(_fire);
 			}
 			// try add fuel to embers unless it wasn't comming out from ember state; only for certian fuels
@@ -542,14 +621,14 @@ namespace FireAddons
 			}
 			// If charcoal was added, hack charcoal values
 			if (fuel.name.ToLower().StartsWith("gear_charcoal"))
-            {
+			{
 				_fire.m_NumGeneratedCharcoalPieces -= 1;
 			}
 
 		}
 	}
 	internal class FireAddonsData
-    {
+	{
 		public int ver;
 		public float timestamp;
 		public string fireState;
